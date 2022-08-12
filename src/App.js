@@ -1,30 +1,28 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useContext } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
 import { ThemeContext } from './ThemeContext'
+import HomePage from './pages/HomePage'
+import PostPage from './pages/PostPage'
 
 function App() {
   const { theme } = useContext(ThemeContext)
   return (
-    <div className={`container ${theme}`}>
-      <Navbar />
-      <div className='main'>
-        <h1>Posts</h1>
-        <ul>
-          <li>
-            <h2>Post 1</h2>
-            <p>Contenido de post 1</p>
-          </li>
-          <li>
-            <h2>Post 2</h2>
-            <p>Contenido de post 2</p>
-          </li>
-        </ul>
+    <BrowserRouter>
+      <div className={`container ${theme}`}>
+        <Navbar />
+        <div className='main'>
+          <Routes>
+            <Route path='/post/:postId' element={<PostPage />} />
+            <Route path='/' element={<HomePage />} />
+          </Routes>
+        </div>
+        <div className='footer'>
+          Blog Increíble. Todos los derechos reservados.
+        </div>
       </div>
-      <div className='footer'>
-        Blog Increíble. Todos los derechos reservados.
-      </div>
-    </div>
+    </BrowserRouter>
   )
 }
 
